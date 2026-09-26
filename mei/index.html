@@ -587,6 +587,8 @@ try {
       toast('秘藏版启用 · 失浪潮隐藏编号');
     } else if(!on&&stamp){ stamp.remove(); stamp=null; toast('秘藏版收起'); }
   }
+  function placeStamp(){ if(!stamp) return; const r=cv.getBoundingClientRect(); stamp.style.left=(r.left+r.width*0.06)+'px'; stamp.style.top=(r.top+r.height*0.13)+'px'; }
+  addEventListener('scroll',placeStamp,true); addEventListener('resize',placeStamp);
   cv.addEventListener('pointerdown',e=>{
     const g=region(e); if(!g) return;
     if(g==='serial'){
