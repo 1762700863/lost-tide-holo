@@ -168,10 +168,7 @@ async function createCardRenderer(canvas, assets) {
     const vid = document.createElement('video');
     vid.src = 'anim54.webm'; vid.loop = true; vid.muted = true; vid.defaultMuted = true; vid.playsInline = true; vid.preload = 'auto';
     vid.setAttribute('playsinline', 'true'); vid.setAttribute('muted', 'true'); vid.setAttribute('loop', 'true');
-    const pill = document.createElement('div');
-    pill.setAttribute('translate', 'no');
-    pill.style.cssText = 'position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:rgba(0,0,0,.55);color:#fff;font:12px/1.6 system-ui,sans-serif;padding:6px 14px;border-radius:999px;z-index:99;letter-spacing:.5px';
-    (document.body || document.documentElement).appendChild(pill);
+    const pill = { style: {}, setAttribute: function () {} };
     const upd = () => { try { const b = vid.buffered; if (b && b.length && vid.duration) { pill.textContent = '加载动画 ' + Math.round(Math.min(1, b.end(b.length - 1) / vid.duration) * 100) + '%'; } } catch (e) {} };
     vid.addEventListener('progress', upd); upd();
     vid.addEventListener('error', () => { pill.textContent = '动画加载失败，展示静态卡'; });
@@ -550,56 +547,5 @@ try {
     'Unable to load the card. Refresh the preview link or open the downloaded HTML file.';
 }
 </script>
-<script>
-(function(){
-  const cv=document.querySelector('canvas'); if(!cv) return;
-  const mk=(t,c)=>{const d=document.createElement(t); d.style.cssText=c; return d;};
-  const wrap=()=>cv.parentElement||document.body;
-  let stamp=null, secret=false, taps=[], lastEmblem=0;
-  function region(e){
-    const r=cv.getBoundingClientRect();
-    const x=(e.clientX-r.left)/r.width, y=(e.clientY-r.top)/r.height;
-    if(Math.hypot(x-0.13,y-0.17)<0.10) return 'serial';
-    if(Math.hypot(x-0.80,y-0.87)<0.11) return 'emblem';
-    return null;
-  }
-  function toast(txt){
-    const t=mk('div','position:fixed;left:50%;bottom:64px;transform:translateX(-50%);background:rgba(10,8,6,.82);color:#f4e9d4;font:12px/1.7 system-ui,sans-serif;letter-spacing:2px;padding:8px 18px;border-radius:999px;border:1px solid #e8b23c55;z-index:98;translate:no');
-    t.setAttribute('translate','no'); t.textContent=txt;
-    document.body.appendChild(t);
-    setTimeout(()=>{t.style.transition='opacity .6s';t.style.opacity='0';setTimeout(()=>t.remove(),650);},2400);
-  }
-  function ring(){
-    const r=cv.getBoundingClientRect();
-    const g=mk('div','position:fixed;left:'+(r.left+r.width*0.80)+'px;top:'+(r.top+r.height*0.87)+'px;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;border:2px solid #e8b23c;z-index:97;pointer-events:none;animation:eggring .9s ease-out forwards');
-    document.body.appendChild(g); setTimeout(()=>g.remove(),950);
-  }
-  const st=mk('style','@keyframes eggring{from{transform:scale(.4);opacity:.95}to{transform:scale(7);opacity:0}}');
-  document.head.appendChild(st);
-  function setSecret(on){
-    secret=on;
-    cv.style.filter=on?'saturate(1.14) hue-rotate(-10deg) brightness(1.05) sepia(.12)':'';
-    if(on&&!stamp){
-      const r=cv.getBoundingClientRect();
-      stamp=mk('div','position:fixed;left:'+(r.left+r.width*0.06)+'px;top:'+(r.top+r.height*0.13)+'px;color:#e8b23c;font:700 13px/1.4 system-ui,sans-serif;letter-spacing:2px;text-shadow:0 0 8px #e8b23c88;z-index:96;pointer-events:none');
-      stamp.setAttribute('translate','no'); stamp.textContent='18/18 · 秘藏';
-      document.body.appendChild(stamp);
-      toast('秘藏版启用 · 失浪潮隐藏编号');
-    } else if(!on&&stamp){ stamp.remove(); stamp=null; toast('秘藏版收起'); }
-  }
-  function placeStamp(){ if(!stamp) return; const r=cv.getBoundingClientRect(); stamp.style.left=(r.left+r.width*0.06)+'px'; stamp.style.top=(r.top+r.height*0.13)+'px'; }
-  addEventListener('scroll',placeStamp,true); addEventListener('resize',placeStamp);
-  cv.addEventListener('pointerdown',e=>{
-    const g=region(e); if(!g) return;
-    if(g==='serial'){
-      const n=performance.now(); taps=taps.filter(t=>n-t<4000); taps.push(n);
-      if(taps.length>=5){ taps=[]; setSecret(!secret); }
-    } else {
-      const n=performance.now();
-      if(n-lastEmblem<450){ ring(); toast('失浪潮制作 · 手绘签名 · 全分辨率帧序列 · 无缝循环'); }
-      lastEmblem=n;
-    }
-  },true);
-})();
-</script>
-<div id="vtag" style="position:fixed;right:6px;bottom:4px;z-index:999;font:10px/1 monospace;color:rgba(255,255,255,.4);pointer-events:none;letter-spacing:1px">v55</div></body></html>
+
+</body></html>
