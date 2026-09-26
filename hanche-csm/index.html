@@ -166,7 +166,7 @@ async function createCardRenderer(canvas, assets) {
     const W = src.naturalWidth || src.width, H = src.naturalHeight || src.height;
     const off = document.createElement('canvas'); off.width = W; off.height = H; const ox = off.getContext('2d');
     const vid = document.createElement('video');
-    vid.src = 'anim.webm'; vid.loop = true; vid.muted = true; vid.defaultMuted = true; vid.playsInline = true; vid.preload = 'auto';
+    vid.src = 'anim.webm?v=53'; vid.loop = true; vid.muted = true; vid.defaultMuted = true; vid.playsInline = true; vid.preload = 'auto';
     vid.setAttribute('playsinline', 'true'); vid.setAttribute('muted', 'true'); vid.setAttribute('loop', 'true');
     const pill = document.createElement('div');
     pill.setAttribute('translate', 'no');

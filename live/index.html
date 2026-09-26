@@ -147,7 +147,7 @@ function frame(){
 applyCard();frame();
 
 (function(){
-  const MAP={csm:'../hanche-csm/anim.webm',hui:'../hui/anim.webm',mei:'../mei/anim.webm'};
+  const MAP={csm:'../hanche-csm/anim.webm?v=53',hui:'../hui/anim.webm?v=53',mei:'../mei/anim.webm?v=53'};
   const keyOf=id=>{id=String(id).toLowerCase();for(const k in MAP){if(id.indexOf(k)>=0)return k;}return null;};
   const V={},OK={};
   const LC=document.createElement('canvas');LC.width=760;LC.height=1140;const lx=LC.getContext('2d');
