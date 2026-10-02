@@ -168,7 +168,10 @@ async function createCardRenderer(canvas, assets) {
     const vid = document.createElement('video');
     vid.src = 'anim54.webm'; vid.loop = true; vid.muted = true; vid.defaultMuted = true; vid.playsInline = true; vid.preload = 'auto';
     vid.setAttribute('playsinline', 'true'); vid.setAttribute('muted', 'true'); vid.setAttribute('loop', 'true');
-    const pill = { style: {}, setAttribute: function () {} };
+    const pill = document.createElement('div');
+    pill.setAttribute('translate', 'no');
+    pill.style.cssText = 'position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:rgba(0,0,0,.55);color:#fff;font:12px/1.6 system-ui,sans-serif;padding:6px 14px;border-radius:999px;z-index:99;letter-spacing:.5px';
+    (document.body || document.documentElement).appendChild(pill);
     const upd = () => { try { const b = vid.buffered; if (b && b.length && vid.duration) { pill.textContent = '加载动画 ' + Math.round(Math.min(1, b.end(b.length - 1) / vid.duration) * 100) + '%'; } } catch (e) {} };
     vid.addEventListener('progress', upd); upd();
     vid.addEventListener('error', () => { pill.textContent = '动画加载失败，展示静态卡'; });
